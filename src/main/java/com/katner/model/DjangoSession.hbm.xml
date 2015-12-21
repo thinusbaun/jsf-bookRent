@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.katner.model.DjangoSession" table="django_session" schema="wypozyczalnia">
+        <id name="sessionKey">
+            <column name="session_key" sql-type="varchar(40)" length="40"/>
+        </id>
+        <property name="sessionData">
+            <column name="session_data" sql-type="longtext"/>
+        </property>
+        <property name="expireDate">
+            <column name="expire_date" sql-type="datetime(6)"/>
+        </property>
+    </class>
+</hibernate-mapping>

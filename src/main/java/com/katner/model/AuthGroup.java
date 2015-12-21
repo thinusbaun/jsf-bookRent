@@ -1,16 +1,15 @@
 package com.katner.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by michal on 21.12.15.
  */
 @Entity
-public class Author {
+@Table(name = "auth_group", schema = "wypozyczalnia", catalog = "")
+public class AuthGroup {
     private int id;
     private String name;
-    private List<Book> books;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -23,7 +22,7 @@ public class Author {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 80)
     public String getName() {
         return name;
     }
@@ -37,10 +36,10 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Author author = (Author) o;
+        AuthGroup authGroup = (AuthGroup) o;
 
-        if (id != author.id) return false;
-        if (name != null ? !name.equals(author.name) : author.name != null) return false;
+        if (id != authGroup.id) return false;
+        if (name != null ? !name.equals(authGroup.name) : authGroup.name != null) return false;
 
         return true;
     }
@@ -50,14 +49,5 @@ public class Author {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    @ManyToMany(mappedBy = "authors")
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 }

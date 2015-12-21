@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.katner.model.Author" table="author" schema="wypozyczalnia">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(100)" length="100"/>
+        </property>
+        <list name="books" inverse="true" table="book_authors" schema="wypozyczalnia" catalog="">
+            <key>
+                <column name="author_id"/>
+            </key>
+            <many-to-many not-found="ignore" class="com.katner.model.Book">
+                <column name="book_id"/>
+            </many-to-many>
+        </list>
+    </class>
+</hibernate-mapping>

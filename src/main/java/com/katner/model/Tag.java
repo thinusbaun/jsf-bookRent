@@ -7,9 +7,9 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
-public class Author {
+public class Tag {
     private int id;
-    private String name;
+    private String title;
     private List<Book> books;
 
     @Id
@@ -23,13 +23,13 @@ public class Author {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 100)
-    public String getName() {
-        return name;
+    @Column(name = "title", nullable = false, length = 45)
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -37,10 +37,10 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Author author = (Author) o;
+        Tag tag = (Tag) o;
 
-        if (id != author.id) return false;
-        if (name != null ? !name.equals(author.name) : author.name != null) return false;
+        if (id != tag.id) return false;
+        if (title != null ? !title.equals(tag.title) : tag.title != null) return false;
 
         return true;
     }
@@ -48,11 +48,11 @@ public class Author {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
     }
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "tags")
     public List<Book> getBooks() {
         return books;
     }

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.katner.model.DjangoAdminLog" table="django_admin_log" schema="wypozyczalnia">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="actionTime">
+            <column name="action_time" sql-type="datetime(6)"/>
+        </property>
+        <property name="objectId">
+            <column name="object_id" sql-type="longtext" not-null="true"/>
+        </property>
+        <property name="objectRepr">
+            <column name="object_repr" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="actionFlag">
+            <column name="action_flag" sql-type="smallint(5) unsigned"/>
+        </property>
+        <property name="changeMessage">
+            <column name="change_message" sql-type="longtext"/>
+        </property>
+        <property name="contentTypeId">
+            <column name="content_type_id" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="userId">
+            <column name="user_id" sql-type="int(11)"/>
+        </property>
+    </class>
+</hibernate-mapping>

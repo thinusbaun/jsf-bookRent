@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.katner.model.SearchEntry" table="searchEntry" schema="wypozyczalnia">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="userId">
+            <column name="userId" sql-type="int(11)"/>
+        </property>
+        <property name="text">
+            <column name="text" sql-type="varchar(120)" length="120"/>
+        </property>
+        <many-to-one name="user" class="com.katner.model.AuthUser">
+            <column name="userId"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

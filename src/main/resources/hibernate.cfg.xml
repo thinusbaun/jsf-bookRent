@@ -6,12 +6,45 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/wypozyczalnia</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <mapping class="katner.model.AdminMessage"/>
-    <mapping resource="AdminMessage.hbm.xml"/>
-    <mapping class="katner.model.AuthUser"/>
-    <mapping resource="AuthUser.hbm.xml"/>
-    <mapping class="katner.model.Author"/>
-    <mapping resource="Author.hbm.xml"/>
+    <mapping class="com.katner.model.AdminMessage"/>
+    <mapping resource="com/katner/model/AdminMessage.hbm.xml"/>
+    <mapping class="com.katner.model.AuthGroup"/>
+    <mapping resource="com/katner/model/AuthGroup.hbm.xml"/>
+    <mapping resource="com/katner/model/AuthGroupPermissions.hbm.xml"/>
+    <mapping class="com.katner.model.AuthGroupPermissions"/>
+    <mapping resource="com/katner/model/AuthPermission.hbm.xml"/>
+    <mapping class="com.katner.model.AuthPermission"/>
+    <mapping class="com.katner.model.AuthUser"/>
+    <mapping resource="com/katner/model/AuthUser.hbm.xml"/>
+    <mapping class="com.katner.model.AuthUserGroups"/>
+    <mapping resource="com/katner/model/AuthUserGroups.hbm.xml"/>
+    <mapping class="com.katner.model.AuthUserUserPermissions"/>
+    <mapping resource="com/katner/model/AuthUserUserPermissions.hbm.xml"/>
+    <mapping class="com.katner.model.Author"/>
+    <mapping resource="com/katner/model/Author.hbm.xml"/>
+    <mapping class="com.katner.model.Book"/>
+    <mapping resource="com/katner/model/Book.hbm.xml"/>
+    <mapping class="com.katner.model.BookCopy"/>
+    <mapping resource="com/katner/model/BookCopy.hbm.xml"/>
+    <mapping resource="com/katner/model/BookAuthors.hbm.xml"/>
+    <mapping class="com.katner.model.BookAuthors"/>
+    <mapping class="com.katner.model.BookTags"/>
+    <mapping resource="com/katner/model/BookTags.hbm.xml"/>
+    <mapping class="com.katner.model.DjangoAdminLog"/>
+    <mapping resource="com/katner/model/DjangoAdminLog.hbm.xml"/>
+    <mapping class="com.katner.model.DjangoContentType"/>
+    <mapping resource="com/katner/model/DjangoContentType.hbm.xml"/>
+    <mapping class="com.katner.model.DjangoMigrations"/>
+    <mapping resource="com/katner/model/DjangoMigrations.hbm.xml"/>
+    <mapping class="com.katner.model.DjangoSession"/>
+    <mapping resource="com/katner/model/DjangoSession.hbm.xml"/>
+    <mapping class="com.katner.model.Rental"/>
+    <mapping resource="com/katner/model/Rental.hbm.xml"/>
+    <mapping class="com.katner.model.SearchEntry"/>
+    <mapping resource="com/katner/model/SearchEntry.hbm.xml"/>
+    <mapping class="com.katner.model.Tag"/>
+    <mapping resource="com/katner/model/Tag.hbm.xml"/>
+
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

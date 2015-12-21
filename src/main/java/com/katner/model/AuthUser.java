@@ -1,15 +1,18 @@
-package katner.model;
+package com.katner.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.List;
 
 /**
- * Created by michal on 15.12.15.
+ * Created by michal on 21.12.15.
  */
 @Entity
 @Table(name = "auth_user", schema = "wypozyczalnia", catalog = "")
 public class AuthUser {
     private int id;
     private String password;
+    private Date lastLogin;
     private byte isSuperuser;
     private String username;
     private String firstName;
@@ -17,6 +20,9 @@ public class AuthUser {
     private String email;
     private byte isStaff;
     private byte isActive;
+    private Date dateJoined;
+    private List<Rental> rentals;
+    private List<SearchEntry> searchEntries;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -36,6 +42,16 @@ public class AuthUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Basic
+    @Column(name = "last_login", nullable = true)
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @Basic
@@ -108,6 +124,16 @@ public class AuthUser {
         this.isActive = isActive;
     }
 
+    @Basic
+    @Column(name = "date_joined", nullable = false)
+    public Date getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(Date dateJoined) {
+        this.dateJoined = dateJoined;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -120,10 +146,12 @@ public class AuthUser {
         if (isStaff != authUser.isStaff) return false;
         if (isActive != authUser.isActive) return false;
         if (password != null ? !password.equals(authUser.password) : authUser.password != null) return false;
+        if (lastLogin != null ? !lastLogin.equals(authUser.lastLogin) : authUser.lastLogin != null) return false;
         if (username != null ? !username.equals(authUser.username) : authUser.username != null) return false;
         if (firstName != null ? !firstName.equals(authUser.firstName) : authUser.firstName != null) return false;
         if (lastName != null ? !lastName.equals(authUser.lastName) : authUser.lastName != null) return false;
         if (email != null ? !email.equals(authUser.email) : authUser.email != null) return false;
+        if (dateJoined != null ? !dateJoined.equals(authUser.dateJoined) : authUser.dateJoined != null) return false;
 
         return true;
     }
@@ -132,6 +160,7 @@ public class AuthUser {
     public int hashCode() {
         int result = id;
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
         result = 31 * result + (int) isSuperuser;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
@@ -139,6 +168,25 @@ public class AuthUser {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (int) isStaff;
         result = 31 * result + (int) isActive;
+        result = 31 * result + (dateJoined != null ? dateJoined.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<SearchEntry> getSearchEntries() {
+        return searchEntries;
+    }
+
+    public void setSearchEntries(List<SearchEntry> searchEntries) {
+        this.searchEntries = searchEntries;
     }
 }

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.katner.model.Book" table="book" schema="wypozyczalnia">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="title">
+            <column name="title" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="isbn">
+            <column name="isbn" sql-type="varchar(15)" length="15"/>
+        </property>
+        <property name="addedDate">
+            <column name="addedDate" sql-type="date"/>
+        </property>
+        <list name="authors" table="book_authors" schema="wypozyczalnia" catalog="">
+            <key>
+                <column name="book_id"/>
+            </key>
+            <many-to-many not-found="ignore" class="com.katner.model.Author">
+                <column name="author_id"/>
+            </many-to-many>
+        </list>
+        <list name="tags" table="book_tags" schema="wypozyczalnia" catalog="">
+            <key>
+                <column name="book_id"/>
+            </key>
+            <many-to-many not-found="ignore" class="com.katner.model.Tag">
+                <column name="tag_id"/>
+            </many-to-many>
+        </list>
+        <list name="copies" inverse="true">
+            <key>
+                <column name="bookId"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.katner.model.BookCopy"/>
+        </list>
+    </class>
+</hibernate-mapping>
