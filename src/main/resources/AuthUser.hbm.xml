@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="katner.model.AuthUser" table="auth_user" schema="wypozyczalnia">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="password">
+            <column name="password" sql-type="varchar(128)" length="128"/>
+        </property>
+        <property name="isSuperuser">
+            <column name="is_superuser" sql-type="tinyint(1)"/>
+        </property>
+        <property name="username">
+            <column name="username" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="firstName">
+            <column name="first_name" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="lastName">
+            <column name="last_name" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(254)" length="254"/>
+        </property>
+        <property name="isStaff">
+            <column name="is_staff" sql-type="tinyint(1)"/>
+        </property>
+        <property name="isActive">
+            <column name="is_active" sql-type="tinyint(1)"/>
+        </property>
+    </class>
+</hibernate-mapping>
