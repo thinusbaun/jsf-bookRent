@@ -8,6 +8,7 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name="book")
 public class Book {
     private int id;
     private String title;
@@ -81,7 +82,7 @@ public class Book {
         return result;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_authors", catalog = "", schema = "wypozyczalnia", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false))
     public List<Author> getAuthors() {
         return authors;

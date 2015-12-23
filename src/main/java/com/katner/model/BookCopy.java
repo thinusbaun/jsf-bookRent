@@ -7,9 +7,9 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name="bookCopy")
 public class BookCopy {
     private int id;
-    private int bookId;
     private Book book;
     private List<Rental> rentals;
 
@@ -23,16 +23,6 @@ public class BookCopy {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "bookId", nullable = false)
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,7 +31,6 @@ public class BookCopy {
         BookCopy bookCopy = (BookCopy) o;
 
         if (id != bookCopy.id) return false;
-        if (bookId != bookCopy.bookId) return false;
 
         return true;
     }
@@ -49,7 +38,6 @@ public class BookCopy {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + bookId;
         return result;
     }
 

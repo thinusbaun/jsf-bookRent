@@ -8,12 +8,6 @@
         <id name="id">
             <column name="id" sql-type="int(11)"/>
         </id>
-        <property name="userId">
-            <column name="userId" sql-type="int(11)"/>
-        </property>
-        <property name="bookCopyId">
-            <column name="bookCopyId" sql-type="int(11)"/>
-        </property>
         <property name="rentalDate">
             <column name="rentalDate" sql-type="date" not-null="true"/>
         </property>

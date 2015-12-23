@@ -8,9 +8,6 @@
         <id name="id">
             <column name="id" sql-type="int(11)"/>
         </id>
-        <property name="bookId">
-            <column name="bookId" sql-type="int(11)"/>
-        </property>
         <many-to-one name="book" class="com.katner.model.Book">
             <column name="bookId"/>
         </many-to-one>

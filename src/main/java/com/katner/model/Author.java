@@ -7,6 +7,7 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name="author")
 public class Author {
     private int id;
     private String name;

@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 public class SearchEntry {
     private int id;
-    private int userId;
     private String text;
     private AuthUser user;
 
@@ -22,15 +21,6 @@ public class SearchEntry {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "userId", nullable = false)
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     @Basic
     @Column(name = "text", nullable = false, length = 120)
@@ -50,7 +40,6 @@ public class SearchEntry {
         SearchEntry that = (SearchEntry) o;
 
         if (id != that.id) return false;
-        if (userId != that.userId) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
 
         return true;
@@ -59,7 +48,6 @@ public class SearchEntry {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + userId;
         result = 31 * result + (text != null ? text.hashCode() : 0);
         return result;
     }

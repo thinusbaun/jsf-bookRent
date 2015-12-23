@@ -7,6 +7,7 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name = "tag")
 public class Tag {
     private int id;
     private String title;

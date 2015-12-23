@@ -7,10 +7,9 @@ import java.sql.Date;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name="rental")
 public class Rental {
     private int id;
-    private int userId;
-    private int bookCopyId;
     private Date rentalDate;
     private Date returnDate;
     private BookCopy bookCopy;
@@ -24,26 +23,6 @@ public class Rental {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "userId", nullable = false)
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "bookCopyId", nullable = false)
-    public int getBookCopyId() {
-        return bookCopyId;
-    }
-
-    public void setBookCopyId(int bookCopyId) {
-        this.bookCopyId = bookCopyId;
     }
 
     @Basic
@@ -74,8 +53,6 @@ public class Rental {
         Rental rental = (Rental) o;
 
         if (id != rental.id) return false;
-        if (userId != rental.userId) return false;
-        if (bookCopyId != rental.bookCopyId) return false;
         if (rentalDate != null ? !rentalDate.equals(rental.rentalDate) : rental.rentalDate != null) return false;
         if (returnDate != null ? !returnDate.equals(rental.returnDate) : rental.returnDate != null) return false;
 
@@ -85,8 +62,6 @@ public class Rental {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + userId;
-        result = 31 * result + bookCopyId;
         result = 31 * result + (rentalDate != null ? rentalDate.hashCode() : 0);
         result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
         return result;
