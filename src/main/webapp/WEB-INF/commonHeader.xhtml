@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<body>
+<ui:composition>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Wypożyczalnia książek</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><h:link outcome="listBooks" value="Książki"></h:link></li>
+                    <li><a type="button" data-toggle="modal" data-target="#searchModal">Wyszukaj</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Motywy <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-theme="default" class="theme-link">Domyślny</a></li>
+                            <li><a href="#" data-theme="cerulean" class="theme-link">Cerulean</a></li>
+                            <li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
+                            <li><a href="#" data-theme="cyborg" class="theme-link">Cyborg</a></li>
+                            <li><a href="#" data-theme="flatly" class="theme-link">Flatly</a></li>
+                            <li><a href="#" data-theme="journal" class="theme-link">Journal</a></li>
+                            <li><a href="#" data-theme="readable" class="theme-link">Readable</a></li>
+                            <li><a href="#" data-theme="simplex" class="theme-link">Simplex</a></li>
+                            <li><a href="#" data-theme="slate" class="theme-link">Slate</a></li>
+                            <li><a href="#" data-theme="spacelab" class="theme-link">Spacelab</a></li>
+                            <li><a href="#" data-theme="united" class="theme-link">United</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                        <!--<li><a href="{% url 'userprofile' %}"><span-->
+                                <!--class="glyphicon glyphicon-user"></span> {{ user.first_name }}</a></li>-->
+                        <!--<li><a href="{% url 'logout' %}?next=/"><span class="glyphicon glyphicon-log-out"></span>-->
+                            <!--Wyloguj</a></li>-->
+                        <li><a href=""><span class="glyphicon glyphicon-user"></span>
+                            Rejestracja</a></li>
+                        <li><a href=""><span class="glyphicon glyphicon-log-in"></span>
+                            Logowanie</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+	    </ui:composition>
+</body>
+</html>

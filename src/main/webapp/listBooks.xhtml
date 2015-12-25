@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<body>
+<ui:composition template="WEB-INF/commonLayout.xhtml">
+    <ui:define name="content">
+    <h2>Książki</h2>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tytuł</th>
+        <th>Autorzy</th>
+        <th>Tagi</th>
+        <th>Stan magazynowy</th>
+    </tr>
+    </thead>
+    <tbody>
+            <ui:repeat value="#{bookListBean.allBooks}" var="book">
+                <tr>
+            <td>
+                <h:outputText value="#{book.title}"/>
+            </td>
+            <td>
+                <ui:repeat var="authors" value="#{book.authors}">
+                    <h:outputText value="#{authors.name}"/>
+                </ui:repeat>
+            </td>
+            <td>
+                <ui:repeat value="#{book.tags}" var="tags">
+                    <h:outputText value="#{tags.title}"/>
+                </ui:repeat>
+            </td>
+                    <td>0</td>
+                </tr>
+        </ui:repeat>
+    </tbody>
+    </table>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

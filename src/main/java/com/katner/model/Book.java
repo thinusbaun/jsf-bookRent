@@ -82,7 +82,7 @@ public class Book {
         return result;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(name = "book_authors", catalog = "", schema = "wypozyczalnia", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false))
     public List<Author> getAuthors() {
         return authors;
