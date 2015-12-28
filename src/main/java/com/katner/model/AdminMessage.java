@@ -1,15 +1,13 @@
 package com.katner.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
  * Created by michal on 21.12.15.
  */
 @Entity
+@Table(name = "adminMessage")
 public class AdminMessage {
     private int id;
     private String content;
