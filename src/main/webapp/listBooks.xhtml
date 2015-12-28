@@ -8,37 +8,49 @@
 <body>
 <ui:composition template="WEB-INF/commonLayout.xhtml">
     <ui:define name="content">
-    <h2>Książki</h2>
-    <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Tytuł</th>
-        <th>Autorzy</th>
-        <th>Tagi</th>
-        <th>Stan magazynowy</th>
-    </tr>
-    </thead>
-    <tbody>
-            <ui:repeat value="#{bookListBean.allBooks}" var="book">
+        <h2>Książki</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Autorzy</th>
+                <th>Tagi</th>
+                <th>Stan magazynowy</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat value="#{bookListBean.books}" var="book">
                 <tr>
-            <td>
-                <h:outputText value="#{book.title}"/>
-            </td>
-            <td>
-                <ui:repeat var="authors" value="#{book.authors}">
-                    <h:outputText value="#{authors.name}"/>
-                </ui:repeat>
-            </td>
-            <td>
-                <ui:repeat value="#{book.tags}" var="tags">
-                    <h:outputText value="#{tags.title}"/>
-                </ui:repeat>
-            </td>
-                    <td>0</td>
+                    <td>
+                        <h:outputText value="#{book.title}"/>
+                    </td>
+                    <td>
+                        <h:form>
+                            <ui:repeat var="authors" value="#{book.authors}">
+                                <h:commandLink id="booksByAuthorLink" action="#{bookListBean.booksByAuthor}">
+                                    <h:outputText value="#{authors.name}"/>
+                                    <f:param name="authorId" value="#{authors.id}"/>
+                                </h:commandLink>&nbsp;
+                            </ui:repeat>
+                        </h:form>
+                    </td>
+                    <td>
+                        <h:form>
+                            <ui:repeat value="#{book.tags}" var="tags">
+                                <span class="label label-warning">
+                                <h:commandLink id="booksByTagLink" action="#{bookListBean.booksByTag}">
+                                    <h:outputText value="#{tags.title}"/>
+                                    <f:param name="authorId" value="#{tags.id}"/>
+                                </h:commandLink>
+                                </span>&nbsp;
+                            </ui:repeat>
+                        </h:form>
+                    </td>
+                    <td><h:outputText value="#{book.availableCopiesCount}"/> </td>
                 </tr>
-        </ui:repeat>
-    </tbody>
-    </table>
+            </ui:repeat>
+            </tbody>
+        </table>
     </ui:define>
 </ui:composition>
 </body>

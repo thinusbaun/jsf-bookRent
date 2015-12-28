@@ -110,4 +110,22 @@ public class Book {
     public void setCopies(List<BookCopy> copies) {
         this.copies = copies;
     }
+
+    @Transient
+    public String getAvailableCopiesCount()
+    {
+        Integer allCopies = copies.size();
+        Integer availableCopies = allCopies;
+        for (BookCopy copy : copies)
+        {
+            for(Rental rental : copy.getRentals())
+            {
+                if (rental.getReturnDate() == null)
+                {
+                    availableCopies--;
+                }
+            }
+        }
+        return availableCopies.toString() + " / " + allCopies.toString();
+    }
 }

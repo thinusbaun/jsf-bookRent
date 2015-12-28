@@ -8,6 +8,7 @@
 >
 <body>
 <ui:composition>
+    <h:form>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,7 +23,11 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><h:link outcome="listBooks" value="Książki"></h:link></li>
+                    <li>
+                        <h:commandLink id="editLink" action="#{bookListBean.getAllBooks}">
+                            <h:outputText value="Książki"/>
+                        </h:commandLink>
+                    </li>
                     <li><a type="button" data-toggle="modal" data-target="#searchModal">Wyszukaj</a></li>
 
                     <li class="dropdown">
@@ -55,9 +60,11 @@
                 </ul>
             </div>
 
+
         </div>
 
     </nav>
+    </h:form>
 
 	    </ui:composition>
 </body>
