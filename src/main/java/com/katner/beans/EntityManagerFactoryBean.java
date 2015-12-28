@@ -1,5 +1,8 @@
 package com.katner.beans;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +21,12 @@ public class EntityManagerFactoryBean {
     @PostConstruct
     public void init() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("hibernate.cfg.xml");
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManagerFactory.createEntityManager());
+        try {
+            fullTextEntityManager.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public EntityManager getEntityManager() {

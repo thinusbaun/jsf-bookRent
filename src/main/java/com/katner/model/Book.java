@@ -1,5 +1,8 @@
 package com.katner.model;
 
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.List;
  * Created by michal on 21.12.15.
  */
 @Entity
+@Indexed
 @Table(name="book")
 public class Book {
     private int id;
@@ -30,6 +34,7 @@ public class Book {
 
     @Basic
     @Column(name = "title", nullable = false, length = 45)
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     public String getTitle() {
         return title;
     }
@@ -39,6 +44,7 @@ public class Book {
     }
 
     @Basic
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "isbn", nullable = false, length = 15)
     public String getIsbn() {
         return isbn;
@@ -84,6 +90,7 @@ public class Book {
 
     @ManyToMany()
     @JoinTable(name = "book_authors", catalog = "", schema = "wypozyczalnia", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false))
+    @IndexedEmbedded
     public List<Author> getAuthors() {
         return authors;
     }
@@ -94,6 +101,7 @@ public class Book {
 
     @ManyToMany
     @JoinTable(name = "book_tags", catalog = "", schema = "wypozyczalnia", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id", nullable = false))
+    @IndexedEmbedded
     public List<Tag> getTags() {
         return tags;
     }
