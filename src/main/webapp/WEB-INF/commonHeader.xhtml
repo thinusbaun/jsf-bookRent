@@ -93,9 +93,10 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <h:panelGroup rendered="#{userBean.user ne null}"></h:panelGroup>
+                        <h:panelGroup rendered="#{userBean.user ne null}">
                         <li><h:commandLink action="#{userBean.logout}"><h:outputText
                                 value="Wylogowanie"/></h:commandLink></li>
+                        </h:panelGroup>
                         <h:panelGroup rendered="#{userBean.user eq null}">
                             <li><h:commandLink action="register"><h:outputText value="Rejestracja"/></h:commandLink>
                             </li>
