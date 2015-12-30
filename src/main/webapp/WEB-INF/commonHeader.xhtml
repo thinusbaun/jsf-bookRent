@@ -93,15 +93,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <!--<li><a href="{% url 'userprofile' %}"><span-->
-                        <!--class="glyphicon glyphicon-user"></span> {{ user.first_name }}</a></li>-->
-                        <!--<li><a href="{% url 'logout' %}?next=/"><span class="glyphicon glyphicon-log-out"></span>-->
-                        <!--Wyloguj</a></li>-->
-                        <li><a href=""><span class="glyphicon glyphicon-user"></span>
-                            Rejestracja</a></li>
-                        <li><a href=""><span class="glyphicon glyphicon-log-in"></span>
-                            Logowanie</a></li>
-
+                        <h:panelGroup rendered="#{userBean.user ne null}"></h:panelGroup>
+                        <li><h:commandLink action="#{userBean.logout}"><h:outputText
+                                value="Wylogowanie"/></h:commandLink></li>
+                        <h:panelGroup rendered="#{userBean.user eq null}">
+                            <li><h:commandLink action="register"><h:outputText value="Rejestracja"/></h:commandLink>
+                            </li>
+                            <li><h:commandLink action="login"><h:outputText value="Logowanie"/></h:commandLink></li>
+                        </h:panelGroup>
                     </ul>
                 </div>
 
