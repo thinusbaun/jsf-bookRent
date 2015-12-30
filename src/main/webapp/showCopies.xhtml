@@ -15,18 +15,17 @@
                 <th>Tytuł</th>
                 <th>Autorzy</th>
                 <th>Tagi</th>
-                <th>Stan magazynowy</th>
             </tr>
             </thead>
             <tbody>
-            <ui:repeat value="#{bookListBean.books}" var="book">
+            <ui:repeat value="#{rentBookBean.copies}" var="copy">
                 <tr>
                     <td>
-                        <h:outputText value="#{book.title}"/>
+                        <h:outputText value="#{copy.book.title}"/>
                     </td>
                     <td>
                         <h:form>
-                            <ui:repeat var="authors" value="#{book.authors}">
+                            <ui:repeat var="authors" value="#{copy.book.authors}">
                                 <h:commandLink id="booksByAuthorLink" action="#{bookListBean.booksByAuthor}">
                                     <h:outputText value="#{authors.name}"/>
                                     <f:param name="authorId" value="#{authors.id}"/>
@@ -36,7 +35,7 @@
                     </td>
                     <td>
                         <h:form>
-                            <ui:repeat value="#{book.tags}" var="tags">
+                            <ui:repeat value="#{copy.book.tags}" var="tags">
                                 <span class="label label-warning">
                                 <h:commandLink id="booksByTagLink" action="#{bookListBean.booksByTag}">
                                     <h:outputText value="#{tags.title}"/>
@@ -46,15 +45,17 @@
                             </ui:repeat>
                         </h:form>
                     </td>
-                    <td><h:outputText value="#{book.availableCopiesCount}"/> </td>
-                    <td>
-                        <h:form>
-                            <h:commandLink action="#{rentBookBean.showCopies}">
-                                <h:outputText value="Wypożycz"/>
-                                <f:param name="bookid" value="#{book.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                    </td>
+                    <h:panelGroup rendered="#{copy.copyAvailable}">
+                        <td>
+                            <h:form>
+                                <h:commandLink action="#{rentBookBean.rentCopy}">
+                                    <h:outputText value="Wypożycz"/>
+                                    <f:param name="bookid" value="#{copy.book.id}"/>
+                                    <f:param name="copyid" value="#{copy.id}"/>
+                                </h:commandLink>
+                            </h:form>
+                        </td>
+                    </h:panelGroup>
                 </tr>
             </ui:repeat>
             </tbody>

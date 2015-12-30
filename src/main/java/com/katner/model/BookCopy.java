@@ -59,4 +59,15 @@ public class BookCopy {
     public void setRentals(List<Rental> rentals) {
         this.rentals = rentals;
     }
+
+    @Transient
+    public Boolean getCopyAvailable() {
+        Boolean available = true;
+        for (Rental rental : rentals) {
+            if (rental.getReturnDate() == null) {
+                available = false;
+            }
+        }
+        return available;
+    }
 }
