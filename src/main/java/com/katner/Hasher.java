@@ -80,7 +80,8 @@ public class Hasher {
     private static String getRandomString(int length) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            builder.append(allowedChars.charAt(random.nextInt(256) % allowedChars.length() - 1));
+//            builder.append(allowedChars.charAt(random.nextInt(256) % allowedChars.length() - 1));
+            builder.append(allowedChars.charAt(random.nextInt(allowedChars.length())));
         }
         return builder.toString();
     }
