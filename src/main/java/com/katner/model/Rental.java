@@ -16,6 +16,7 @@ public class Rental {
     private AuthUser user;
 
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

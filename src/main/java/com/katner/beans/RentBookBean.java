@@ -74,6 +74,16 @@ public class RentBookBean {
         session.getTransaction().begin();
         session.persist(rental);
         session.getTransaction().commit();
+        session.refresh(searchCopy(id));
         return showCopies();
+    }
+
+    BookCopy searchCopy(Integer id) {
+        for (BookCopy copy : copies) {
+            if (copy.getId() == id) {
+                return copy;
+            }
+        }
+        return null;
     }
 }
