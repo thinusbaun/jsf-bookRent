@@ -7,6 +7,7 @@ import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -149,6 +150,12 @@ public class BookListBean {
         }
         searchQuery = "";
         return "listBooks";
+    }
+
+    public List<Book> getNewBooks() {
+        Session session = em.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(Book.class).addOrder(Order.desc("addedDate"));
+        return criteria.setMaxResults(5).list();
     }
 
     public Book searchBook(Integer id) {
