@@ -94,6 +94,8 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <h:panelGroup rendered="#{userBean.user ne null}">
+                            <li><h:commandLink action="listUserBooks"><h:outputText
+                                    value="#{userBean.user.firstName}"/></h:commandLink></li>
                         <li><h:commandLink action="#{userBean.logout}"><h:outputText
                                 value="Wylogowanie"/></h:commandLink></li>
                         </h:panelGroup>

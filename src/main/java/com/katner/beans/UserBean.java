@@ -2,6 +2,7 @@ package com.katner.beans;
 
 import com.katner.Hasher;
 import com.katner.model.AuthUser;
+import com.katner.model.Rental;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Created by michal on 29.12.15.
@@ -78,6 +80,10 @@ public class UserBean {
         username = null;
         password = null;
         return "index";
+    }
+
+    public List<Rental> getUserRentals() {
+        return em.createQuery("from Rental r where r.user = :user").setParameter("user", user).getResultList();
     }
 
 }

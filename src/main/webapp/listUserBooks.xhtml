@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<body>
+<ui:composition template="WEB-INF/commonLayout.xhtml">
+    <ui:define name="content">
+        <h2>Książki</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Autorzy</th>
+                <th>Tagi</th>
+                <th>Data wypożyczenia</th>
+                <th>Data zwrotu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat value="#{userBean.userRentals}" var="rental">
+                <tr>
+                    <td>
+                        <h:outputText value="#{rental.bookCopy.book.title}"/>
+                    </td>
+                    <td>
+                        <h:form>
+                            <ui:repeat var="authors" value="#{rental.bookCopy.book.authors}">
+                                <h:commandLink id="booksByAuthorLink" action="#{bookListBean.booksByAuthor}">
+                                    <h:outputText value="#{authors.name}"/>
+                                    <f:param name="authorId" value="#{authors.id}"/>
+                                </h:commandLink>&nbsp;
+                            </ui:repeat>
+                        </h:form>
+                    </td>
+                    <td>
+                        <h:form>
+                            <ui:repeat value="#{rental.bookCopy.book.tags}" var="tags">
+                                <span class="label label-warning">
+                                <h:commandLink id="booksByTagLink" action="#{bookListBean.booksByTag}">
+                                    <h:outputText value="#{tags.title}"/>
+                                    <f:param name="authorId" value="#{tags.id}"/>
+                                </h:commandLink>
+                                </span>&nbsp;
+                            </ui:repeat>
+                        </h:form>
+                    </td>
+                    <td><h:outputText value="#{rental.rentalDate}"/></td>
+                    <td><h:outputText value="#{rental.returnDate}"/></td>
+                    <h:panelGroup rendered="#{rental.returnDate eq null}">
+                        <td>
+                            <h:form>
+                                <h:commandLink action="#{rentBookBean.returnCopy}">
+                                    <h:outputText value="Zwróć"/>
+                                    <f:param name="bookid" value="#{rental.bookCopy.book.id}"/>
+                                    <f:param name="copyid" value="#{rental.bookCopy.id}"/>
+                                    <f:param name="rentalid" value="#{rental.id}"/>
+                                </h:commandLink>
+                            </h:form>
+                        </td>
+                    </h:panelGroup>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

@@ -95,6 +95,34 @@ public class RentBookBean {
         return showCopies();
     }
 
+    public String returnCopy() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map map = context.getExternalContext().getRequestParameterMap();
+        Integer bookid = Integer.parseInt((String) map.get("bookid"));
+        Integer copyid = Integer.parseInt((String) map.get("copyid"));
+        Integer rentalid = Integer.parseInt((String) map.get("rentalid"));
+        Session session = em.unwrap(Session.class);
+        session.getTransaction().begin();
+        Rental rental = session.get(Rental.class, rentalid);
+        rental.setReturnDate(new Date(Calendar.getInstance().getTime().getTime()));
+        session.saveOrUpdate(rental);
+        session.getTransaction().commit();
+        for (Rental r : userBean.getUser().getRentals()) {
+            if (r.getId() == rentalid) {
+                r.setReturnDate(rental.getReturnDate());
+            }
+        }
+        for (BookCopy c : bookListBean.searchBook(bookid).getCopies()) {
+            for (Rental r : c.getRentals()) {
+                if (r.getId() == rentalid) {
+                    r.setReturnDate(rental.getReturnDate());
+                }
+            }
+        }
+        return "";
+
+    }
+
     BookCopy searchCopy(Integer id) {
         for (BookCopy copy : copies) {
             if (copy.getId() == id) {
