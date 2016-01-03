@@ -151,5 +151,14 @@ public class BookListBean {
         return "listBooks";
     }
 
+    public Book searchBook(Integer id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return book;
+            }
+        }
+        return null;
+    }
+
 
 }

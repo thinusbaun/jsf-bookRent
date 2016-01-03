@@ -1,5 +1,6 @@
 package com.katner.beans;
 
+import com.katner.model.Book;
 import com.katner.model.BookCopy;
 import com.katner.model.Rental;
 import org.hibernate.Session;
@@ -28,6 +29,16 @@ public class RentBookBean {
 
     @ManagedProperty("#{userBean}")
     private UserBean userBean;
+    @ManagedProperty("#{bookListBean}")
+    private BookListBean bookListBean;
+
+    public BookListBean getBookListBean() {
+        return bookListBean;
+    }
+
+    public void setBookListBean(BookListBean bookListBean) {
+        this.bookListBean = bookListBean;
+    }
 
     public UserBean getUserBean() {
         return userBean;
@@ -75,6 +86,12 @@ public class RentBookBean {
         session.persist(rental);
         session.getTransaction().commit();
         session.refresh(searchCopy(id));
+        Book book = bookListBean.searchBook(searchCopy(id).getBook().getId());
+        for (BookCopy c : book.getCopies()) {
+            if (c.getId() == id) {
+                c.getRentals().add(rental);
+            }
+        }
         return showCopies();
     }
 
