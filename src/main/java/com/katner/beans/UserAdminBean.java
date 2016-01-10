@@ -33,17 +33,31 @@ public class UserAdminBean {
     }
 
     public void userActiveSettingListener(AjaxBehaviorEvent event) {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        Map map = context.getExternalContext().getRequestParameterMap();
-//        Integer userid = Integer.parseInt((String) map.get("userid"));
         Integer userid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("userid"));
         Boolean value = (Boolean) ((UIOutput) event.getSource()).getValue();
-//        Session session = em.unwrap(Session.class);
         em.getTransaction().begin();
         AuthUser user = em.find(AuthUser.class, userid);
-//        AuthUser user = session.load(AuthUser.class, userid);
         user.setActive(value);
-//        session.merge(user);
+        em.merge(user);
+        em.getTransaction().commit();
+    }
+
+    public void userIsStaffSettingListener(AjaxBehaviorEvent event) {
+        Integer userid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("userid"));
+        Boolean value = (Boolean) ((UIOutput) event.getSource()).getValue();
+        em.getTransaction().begin();
+        AuthUser user = em.find(AuthUser.class, userid);
+        user.setStaff(value);
+        em.merge(user);
+        em.getTransaction().commit();
+    }
+
+    public void userIsSuperuserSettingListener(AjaxBehaviorEvent event) {
+        Integer userid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("userid"));
+        Boolean value = (Boolean) ((UIOutput) event.getSource()).getValue();
+        em.getTransaction().begin();
+        AuthUser user = em.find(AuthUser.class, userid);
+        user.setSuperuser(value);
         em.merge(user);
         em.getTransaction().commit();
     }

@@ -28,19 +28,24 @@
                         <h:form>
                             <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
                             <h:selectBooleanCheckbox value="#{user.active}">
-                                <!--<f:param name="userid" value="#{user.id}"/>-->
                                 <f:ajax event="click" listener="#{userAdminBean.userActiveSettingListener}"/>
                             </h:selectBooleanCheckbox>
                         </h:form>
                     </td>
                     <td>
                         <h:form>
-                            <h:selectBooleanCheckbox value="#{user.isStaff eq 1}"/>
+                            <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
+                            <h:selectBooleanCheckbox value="#{user.staff}">
+                                <f:ajax event="click" listener="#{userAdminBean.userIsStaffSettingListener}"/>
+                            </h:selectBooleanCheckbox>
                         </h:form>
                     </td>
                     <td>
                         <h:form>
-                            <h:selectBooleanCheckbox value="#{user.isSuperuser eq 1}"/>
+                            <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
+                            <h:selectBooleanCheckbox value="#{user.superuser}">
+                                <f:ajax event="click" listener="#{userAdminBean.userIsSuperuserSettingListener}"/>
+                            </h:selectBooleanCheckbox>
                         </h:form>
                     </td>
                 </tr>

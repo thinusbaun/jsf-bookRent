@@ -64,6 +64,20 @@ public class AuthUser {
         this.isSuperuser = isSuperuser;
     }
 
+    @Transient
+    public boolean isSuperuser() {
+        return (isSuperuser == 1);
+    }
+
+    @Transient
+    public void setSuperuser(boolean superuser) {
+        if (superuser) {
+            this.isSuperuser = 1;
+        } else {
+            this.isSuperuser = 0;
+        }
+    }
+
     @Basic
     @Column(name = "username", nullable = false, length = 30)
     public String getUsername() {
@@ -112,6 +126,20 @@ public class AuthUser {
 
     public void setIsStaff(byte isStaff) {
         this.isStaff = isStaff;
+    }
+
+    @Transient
+    public boolean isStaff() {
+        return (isStaff == 1);
+    }
+
+    @Transient
+    public void setStaff(boolean staff) {
+        if (staff) {
+            this.isStaff = 1;
+        } else {
+            this.isStaff = 0;
+        }
     }
 
     @Basic
