@@ -93,12 +93,16 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
+                        <h:panelGroup rendered="#{userBean.user.userIsStaff}">
+                            <li>
+                                <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
+                            </li>
+                        </h:panelGroup>
                         <h:panelGroup rendered="#{userBean.user ne null}">
                             <li><h:commandLink action="listUserBooks"><h:outputText
                                     value="#{userBean.user.firstName}"/></h:commandLink></li>
-                        <li><h:commandLink action="#{userBean.logout}"><h:outputText
-                                value="Wylogowanie"/></h:commandLink></li>
+                            <li><h:commandLink action="#{userBean.logout}"><h:outputText
+                                    value="Wylogowanie"/></h:commandLink></li>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{userBean.user eq null}">
                             <li><h:commandLink action="register"><h:outputText value="Rejestracja"/></h:commandLink>
@@ -124,15 +128,15 @@
                     <h4 class="modal-title">Wyszkukaj książki, autorów, isbn, tagi</h4>
                 </div>
                 <h:form onsubmit="addSearchEntryToCookie()">
-                <div class="modal-body">
-                    <h:inputText value="#{bookListBean.searchQuery}" id="autocomplete"/>
-                    <div>Możesz używać operatorów NOT, AND, OR oraz pól "title:", "author:", "isbn:" oraz "tag:"</div>
-                    <h:commandButton action="#{bookListBean.search}" value="Szukaj"/>
-                </div>
-            </h:form>
+                    <div class="modal-body">
+                        <h:inputText value="#{bookListBean.searchQuery}" id="autocomplete"/>
+                        <div>Możesz używać operatorów NOT, AND, OR oraz pól "title:", "author:", "isbn:" oraz "tag:"</div>
+                        <h:commandButton action="#{bookListBean.search}" value="Szukaj"/>
+                    </div>
+                </h:form>
+            </div>
         </div>
     </div>
-</div>
 
 </ui:composition>
 </body>

@@ -78,6 +78,11 @@ public class AuthUser {
         }
     }
 
+    @Transient
+    public boolean userIsStaff() {
+        return (isSuperuser() || isSuperuser());
+    }
+
     @Basic
     @Column(name = "username", nullable = false, length = 30)
     public String getUsername() {

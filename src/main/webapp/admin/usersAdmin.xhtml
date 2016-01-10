@@ -14,8 +14,10 @@
             <tr>
                 <th>Nazwa użytkownika</th>
                 <th>Zatwierdzony</th>
-                <th>Pracownik</th>
-                <th>Administrator</th>
+                <h:panelGroup rendered="#{userBean.user.superuser}">
+                    <th>Pracownik</th>
+                    <th>Administrator</th>
+                </h:panelGroup>
             </tr>
             </thead>
             <tbody>
@@ -32,22 +34,24 @@
                             </h:selectBooleanCheckbox>
                         </h:form>
                     </td>
-                    <td>
-                        <h:form>
-                            <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
-                            <h:selectBooleanCheckbox value="#{user.staff}">
-                                <f:ajax event="click" listener="#{userAdminBean.userIsStaffSettingListener}"/>
-                            </h:selectBooleanCheckbox>
-                        </h:form>
-                    </td>
-                    <td>
-                        <h:form>
-                            <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
-                            <h:selectBooleanCheckbox value="#{user.superuser}">
-                                <f:ajax event="click" listener="#{userAdminBean.userIsSuperuserSettingListener}"/>
-                            </h:selectBooleanCheckbox>
-                        </h:form>
-                    </td>
+                    <h:panelGroup rendered="#{userBean.user.superuser}">
+                        <td>
+                            <h:form>
+                                <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
+                                <h:selectBooleanCheckbox value="#{user.staff}">
+                                    <f:ajax event="click" listener="#{userAdminBean.userIsStaffSettingListener}"/>
+                                </h:selectBooleanCheckbox>
+                            </h:form>
+                        </td>
+                        <td>
+                            <h:form>
+                                <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
+                                <h:selectBooleanCheckbox value="#{user.superuser}">
+                                    <f:ajax event="click" listener="#{userAdminBean.userIsSuperuserSettingListener}"/>
+                                </h:selectBooleanCheckbox>
+                            </h:form>
+                        </td>
+                    </h:panelGroup>
                 </tr>
             </ui:repeat>
             </tbody>
