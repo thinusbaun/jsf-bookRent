@@ -93,6 +93,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
                         <h:panelGroup rendered="#{userBean.user ne null}">
                             <li><h:commandLink action="listUserBooks"><h:outputText
                                     value="#{userBean.user.firstName}"/></h:commandLink></li>

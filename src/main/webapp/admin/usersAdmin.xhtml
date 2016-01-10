@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<body>
+<ui:composition template="../WEB-INF/commonLayout.xhtml">
+    <ui:define name="content">
+        <h2>Użytkownicy</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nazwa użytkownika</th>
+                <th>Zatwierdzony</th>
+                <th>Pracownik</th>
+                <th>Administrator</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat value="#{userAdminBean.allUsers}" var="user">
+                <tr>
+                    <td>
+                        <h:outputText value="#{user.username}"/>
+                    </td>
+                    <td>
+                        <h:form>
+                            <input type="hidden" name="userid" id="userid" value="#{user.id}"/>
+                            <h:selectBooleanCheckbox value="#{user.active}">
+                                <!--<f:param name="userid" value="#{user.id}"/>-->
+                                <f:ajax event="click" listener="#{userAdminBean.userActiveSettingListener}"/>
+                            </h:selectBooleanCheckbox>
+                        </h:form>
+                    </td>
+                    <td>
+                        <h:form>
+                            <h:selectBooleanCheckbox value="#{user.isStaff eq 1}"/>
+                        </h:form>
+                    </td>
+                    <td>
+                        <h:form>
+                            <h:selectBooleanCheckbox value="#{user.isSuperuser eq 1}"/>
+                        </h:form>
+                    </td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

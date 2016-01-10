@@ -124,6 +124,20 @@ public class AuthUser {
         this.isActive = isActive;
     }
 
+    @Transient
+    public boolean isActive() {
+        return (isActive == 1);
+    }
+
+    @Transient
+    public void setActive(boolean active) {
+        if (active) {
+            this.isActive = 1;
+        } else {
+            this.isActive = 0;
+        }
+    }
+
     @Basic
     @Column(name = "date_joined", nullable = false)
     public Date getDateJoined() {
