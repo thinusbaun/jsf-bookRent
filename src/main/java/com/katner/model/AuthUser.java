@@ -79,8 +79,8 @@ public class AuthUser {
     }
 
     @Transient
-    public boolean userIsStaff() {
-        return (isSuperuser() || isSuperuser());
+    public boolean getUserIsStaff() {
+        return (isStaff() || isSuperuser());
     }
 
     @Basic

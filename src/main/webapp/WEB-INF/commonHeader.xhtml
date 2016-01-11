@@ -93,9 +93,13 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <h:commandLink action="admin/booksAdmin" value="Książki"/>
                         <h:panelGroup rendered="#{userBean.user.userIsStaff}">
                             <li>
                                 <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
+                            </li>
+                            <li>
+                                <h:commandLink action="admin/booksAdmin" value="Książki"/>
                             </li>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{userBean.user ne null}">

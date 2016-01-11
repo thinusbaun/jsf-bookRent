@@ -5,6 +5,7 @@ import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ import java.util.List;
 @Indexed
 @Table(name="book")
 public class Book {
+    @Transient
+    public List<String> sAuthors;
     private int id;
     private String title;
     private String isbn;
@@ -135,5 +138,19 @@ public class Book {
             }
         }
         return availableCopies.toString() + " / " + allCopies.toString();
+    }
+
+    @Transient
+    public List<String> getSelectedAuthors() {
+        List<String> selectedAuthors = new ArrayList<String>();
+        for (Author author : authors) {
+            selectedAuthors.add(new Integer(author.getId()).toString());
+        }
+        return selectedAuthors;
+    }
+
+    @Transient
+    public void setSelectedAuthors(List<String> a) {
+        this.sAuthors = a;
     }
 }
