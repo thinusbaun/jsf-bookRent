@@ -25,12 +25,11 @@
                     </td>
                     <td>
                         <h:form>
+                            <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
                             <h:selectManyListbox value="#{book.selectedAuthors}" size="5">
                                 <f:selectItems value="#{bookAdminBean.allAuthors}"/>
+                                <f:ajax execute="@this" listener="#{bookAdminBean.updateBook}" event="change"/>
                             </h:selectManyListbox>
-                            <h:commandButton value="Aktualizuj" action="#{bookAdminBean.updateBook}">
-                                <f:param value="#{book.id}" name="bookid"/>
-                            </h:commandButton>
                         </h:form>
                     </td>
                     <td>

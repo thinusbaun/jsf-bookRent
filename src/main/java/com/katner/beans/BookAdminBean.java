@@ -9,10 +9,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by michal on 10.01.16.
@@ -88,28 +90,26 @@ public class BookAdminBean {
 
     }
 
-    public void updateBook() {
-        Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
-        em.getTransaction().begin();
-//        Book bookToMerge = em.find(Book.class, bookid);
-        for (Book b : allBooks) {
-            if (b.sAuthors != null) {
-                Integer asd = 123;
+    public void updateBook(AjaxBehaviorEvent event) {
+        final Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
+        Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findFirst();
+        try {
+            if (!book.isPresent()) {
                 return;
             }
-        }
-        for (Book b : allBooks) {
-            if (b.getId() == bookid) {
-                List<Author> authors = new ArrayList<Author>();
-                for (int i = 0; i < b.sAuthors.size(); i++) {
-                    authors.add(em.find(Author.class, Integer.parseInt(b.sAuthors.get(i))));
-                }
-                b.setAuthors(authors);
-                em.merge(b);
-                bookListBean.searchBook(bookid).setAuthors(authors);
+            em.getTransaction().begin();
+            List<Author> authors = new ArrayList<Author>();
+            for (String authoridString : book.get().sAuthors) {
+                authors.add(em.find(Author.class, Integer.parseInt(authoridString)));
             }
+            book.get().setAuthors(authors);
+            em.merge(book.get());
+            bookListBean.searchBook(bookid).setAuthors(authors);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
         }
-        em.getTransaction().commit();
     }
 
 }
