@@ -90,7 +90,7 @@ public class BookAdminBean {
 
     }
 
-    public void updateBook(AjaxBehaviorEvent event) {
+    public void updateAuthorsInBook(AjaxBehaviorEvent event) {
         final Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
         Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findFirst();
         try {
@@ -105,6 +105,28 @@ public class BookAdminBean {
             book.get().setAuthors(authors);
             em.merge(book.get());
             bookListBean.searchBook(bookid).setAuthors(authors);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTagsInBook(AjaxBehaviorEvent event) {
+        final Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
+        Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findFirst();
+        try {
+            if (!book.isPresent()) {
+                return;
+            }
+            em.getTransaction().begin();
+            List<Tag> tags = new ArrayList<Tag>();
+            for (String tagidString : book.get().sTags) {
+                tags.add(em.find(Tag.class, Integer.parseInt(tagidString)));
+            }
+            book.get().setTags(tags);
+            em.merge(book.get());
+            bookListBean.searchBook(bookid).setTags(tags);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();

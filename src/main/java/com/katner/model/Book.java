@@ -17,6 +17,8 @@ import java.util.List;
 public class Book {
     @Transient
     public List<String> sAuthors;
+    @Transient
+    public List<String> sTags;
     private int id;
     private String title;
     private String isbn;
@@ -152,5 +154,19 @@ public class Book {
     @Transient
     public void setSelectedAuthors(List<String> a) {
         this.sAuthors = a;
+    }
+
+    @Transient
+    public List<String> getSelectedTags() {
+        List<String> selectedTags = new ArrayList<String>();
+        for (Tag tag : tags) {
+            selectedTags.add(new Integer(tag.getId()).toString());
+        }
+        return selectedTags;
+    }
+
+    @Transient
+    public void setSelectedTags(List<String> t) {
+        this.sTags = t;
     }
 }

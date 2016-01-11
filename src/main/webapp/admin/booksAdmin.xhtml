@@ -28,14 +28,16 @@
                             <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
                             <h:selectManyListbox value="#{book.selectedAuthors}" size="5">
                                 <f:selectItems value="#{bookAdminBean.allAuthors}"/>
-                                <f:ajax execute="@this" listener="#{bookAdminBean.updateBook}" event="change"/>
+                                <f:ajax execute="@this" listener="#{bookAdminBean.updateAuthorsInBook}" event="change"/>
                             </h:selectManyListbox>
                         </h:form>
                     </td>
                     <td>
                         <h:form>
-                            <h:selectManyListbox value="" size="5">
+                            <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
+                            <h:selectManyListbox value="#{book.selectedTags}" size="5">
                                 <f:selectItems value="#{bookAdminBean.allTags}"/>
+                                <f:ajax execute="@this" listener="#{bookAdminBean.updateTagsInBook}" event="change"/>
                             </h:selectManyListbox>
                         </h:form>
                     </td>
