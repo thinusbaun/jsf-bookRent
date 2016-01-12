@@ -41,6 +41,12 @@
                             </h:selectManyListbox>
                         </h:form>
                     </td>
+                    <td>
+                        <h:form>
+                            <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
+                            <h:commandButton value="Usuń książkę" action="#{bookAdminBean.removeBook}"/>
+                        </h:form>
+                    </td>
                 </tr>
             </ui:repeat>
             </tbody>

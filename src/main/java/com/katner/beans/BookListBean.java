@@ -72,7 +72,17 @@ public class BookListBean {
     }
 
     public String getAllBooks() {
-        books = em.createQuery("from Book ").getResultList();
+        try {
+            em.getTransaction().begin();
+            books = em.createQuery("from Book ").getResultList();
+            em.getTransaction().commit();
+            em.getTransaction().begin();
+            books = em.createQuery("from Book ").getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
         return "listBooks";
     }
 
@@ -165,6 +175,10 @@ public class BookListBean {
             }
         }
         return null;
+    }
+
+    public void removeBook(Integer id) {
+        books.removeIf(a -> a.getId() == id);
     }
 
 

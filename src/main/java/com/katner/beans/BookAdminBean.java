@@ -134,4 +134,19 @@ public class BookAdminBean {
         }
     }
 
+    public void removeBook() {
+        final Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
+        Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findFirst();
+        try {
+            em.getTransaction().begin();
+            em.remove(book.get());
+            em.getTransaction().commit();
+            allBooks.removeIf(a -> a.getId() == bookid);
+            bookListBean.removeBook(bookid);
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
+    }
+
 }
