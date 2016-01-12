@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Indexed
-@Table(name="book")
+@Table(name = "book")
 public class Book {
     @Transient
     public List<String> sAuthors;
@@ -125,16 +125,12 @@ public class Book {
     }
 
     @Transient
-    public String getAvailableCopiesCount()
-    {
+    public String getAvailableCopiesCount() {
         Integer allCopies = copies.size();
         Integer availableCopies = allCopies;
-        for (BookCopy copy : copies)
-        {
-            for(Rental rental : copy.getRentals())
-            {
-                if (rental.getReturnDate() == null)
-                {
+        for (BookCopy copy : copies) {
+            for (Rental rental : copy.getRentals()) {
+                if (rental.getReturnDate() == null) {
                     availableCopies--;
                 }
             }
@@ -145,8 +141,11 @@ public class Book {
     @Transient
     public List<String> getSelectedAuthors() {
         List<String> selectedAuthors = new ArrayList<String>();
-        for (Author author : authors) {
-            selectedAuthors.add(new Integer(author.getId()).toString());
+        try {
+            for (Author author : authors) {
+                selectedAuthors.add(new Integer(author.getId()).toString());
+            }
+        } catch (Exception e) {
         }
         return selectedAuthors;
     }
@@ -159,8 +158,12 @@ public class Book {
     @Transient
     public List<String> getSelectedTags() {
         List<String> selectedTags = new ArrayList<String>();
-        for (Tag tag : tags) {
-            selectedTags.add(new Integer(tag.getId()).toString());
+        try {
+            for (Tag tag : tags) {
+                selectedTags.add(new Integer(tag.getId()).toString());
+            }
+        } catch (Exception e) {
+
         }
         return selectedTags;
     }

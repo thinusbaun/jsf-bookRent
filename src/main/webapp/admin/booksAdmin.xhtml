@@ -51,6 +51,15 @@
             </ui:repeat>
             </tbody>
         </table>
+        <h:form>
+            <h:outputText value="Tytuł nowej książki: "/>
+            <h:inputText value="#{bookAdminBean.newBookTitle}"/>
+            <br/>
+            <h:outputText value="ISBN nowej książki: "/>
+            <h:inputText value="#{bookAdminBean.newBookIsbn}"/>
+            <br/>
+            <h:commandButton action="#{bookAdminBean.addBook}" value="Dodaj książkę"/>
+        </h:form>
     </ui:define>
 </ui:composition>
 </body>

@@ -12,7 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,24 @@ public class BookAdminBean {
     private List<Book> allBooks;
     private List<SelectItem> allAuthors;
     private List<SelectItem> allTags;
+    private String newBookTitle;
+    private String newBookIsbn;
+
+    public String getNewBookTitle() {
+        return newBookTitle;
+    }
+
+    public void setNewBookTitle(String newBookTitle) {
+        this.newBookTitle = newBookTitle;
+    }
+
+    public String getNewBookIsbn() {
+        return newBookIsbn;
+    }
+
+    public void setNewBookIsbn(String newBookIsbn) {
+        this.newBookIsbn = newBookIsbn;
+    }
 
     public BookListBean getBookListBean() {
         return bookListBean;
@@ -146,6 +166,23 @@ public class BookAdminBean {
         } catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
+        }
+    }
+
+    public void addBook() {
+        try {
+            em.getTransaction().begin();
+            Book b = new Book();
+            b.setTitle(newBookTitle);
+            b.setIsbn(newBookIsbn);
+            b.setAddedDate(new Date(Calendar.getInstance().getTime().getTime()));
+            em.persist(b);
+            em.getTransaction().commit();
+            allBooks.add(b);
+            newBookIsbn = "";
+            newBookTitle = "";
+        } catch (Exception e) {
+            em.getTransaction().rollback();
         }
     }
 
