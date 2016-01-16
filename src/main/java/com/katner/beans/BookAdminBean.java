@@ -2,6 +2,7 @@ package com.katner.beans;
 
 import com.katner.model.Author;
 import com.katner.model.Book;
+import com.katner.model.BookCopy;
 import com.katner.model.Tag;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +14,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by michal on 10.01.16.
@@ -34,6 +32,15 @@ public class BookAdminBean {
     private List<SelectItem> allTags;
     private String newBookTitle;
     private String newBookIsbn;
+    private List<BookCopy> copies;
+
+    public List<BookCopy> getCopies() {
+        return copies;
+    }
+
+    public void setCopies(List<BookCopy> copies) {
+        this.copies = copies;
+    }
 
     public String getNewBookTitle() {
         return newBookTitle;
@@ -184,6 +191,35 @@ public class BookAdminBean {
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
+    }
+
+    public String addCopy() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map map = context.getExternalContext().getRequestParameterMap();
+        Integer id = Integer.parseInt((String) map.get("bookid"));
+        copies = em.createQuery("from BookCopy c where c.book.id = :id").setParameter("id", id).getResultList();
+        return "copiesAdmin";
+    }
+
+    public String removeCopy() {
+        final Integer bookid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookid"));
+        final Integer copyid = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("copyid"));
+        Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findFirst();
+        try {
+            em.getTransaction().begin();
+            List<BookCopy> bookCopyList = book.get().getCopies();
+            Optional<BookCopy> copy = bookCopyList.stream().filter(a -> a.getId() == copyid).findFirst();
+            em.remove(copy.get());
+            bookCopyList.removeIf(a -> a.getId() == copyid);
+            copies.removeIf(a -> a.getId() == copyid);
+            book.get().setCopies(bookCopyList);
+            em.merge(book.get());
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

@@ -46,6 +46,10 @@
                             <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
                             <h:commandButton value="Usuń książkę" action="#{bookAdminBean.removeBook}"/>
                         </h:form>
+                        <h:form>
+                            <input type="hidden" name="bookid" id="bookid" value="#{book.id}"/>
+                            <h:commandButton value="Egzemplarze" action="#{bookAdminBean.addCopy}"/>
+                        </h:form>
                     </td>
                 </tr>
             </ui:repeat>
