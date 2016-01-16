@@ -94,6 +94,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <h:commandLink action="admin/booksAdmin" value="Książki"/>
+                        <h:commandLink action="#{rentalAdminBean.viewRentals}" value="Wypożyczenia"/>
                         <h:panelGroup rendered="#{userBean.user.userIsStaff}">
                             <li>
                                 <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
