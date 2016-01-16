@@ -33,6 +33,7 @@ public class BookAdminBean {
     private String newBookTitle;
     private String newBookIsbn;
     private List<BookCopy> copies;
+    private Integer bookIdForCopy;
 
     public List<BookCopy> getCopies() {
         return copies;
@@ -193,11 +194,12 @@ public class BookAdminBean {
         }
     }
 
-    public String addCopy() {
+    public String showAddCopy() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map map = context.getExternalContext().getRequestParameterMap();
         Integer id = Integer.parseInt((String) map.get("bookid"));
         copies = em.createQuery("from BookCopy c where c.book.id = :id").setParameter("id", id).getResultList();
+        bookIdForCopy = id;
         return "copiesAdmin";
     }
 
@@ -215,9 +217,32 @@ public class BookAdminBean {
             book.get().setCopies(bookCopyList);
             em.merge(book.get());
             em.getTransaction().commit();
+            Book blbBook = bookListBean.searchBook(bookid);
+            List<BookCopy> blbCopyList = blbBook.getCopies();
+            blbCopyList.removeIf(a -> a.getId() == copyid);
+            blbBook.setCopies(blbCopyList);
         } catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String addCopy() {
+        Integer bookid = bookIdForCopy;
+        Optional<Book> book = allBooks.stream().filter(a -> a.getId() == bookid).findAny();
+        try {
+            em.getTransaction().begin();
+            BookCopy b = new BookCopy();
+            b.setBook(book.get());
+            em.persist(b);
+            book.get().getCopies().add(b);
+            em.merge(book.get());
+            em.getTransaction().commit();
+            copies.add(b);
+            bookListBean.searchBook(bookid).getCopies().add(b);
+        } catch (Exception e) {
+            em.getTransaction().rollback();
         }
         return "";
     }

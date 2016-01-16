@@ -129,9 +129,11 @@ public class Book {
         Integer allCopies = copies.size();
         Integer availableCopies = allCopies;
         for (BookCopy copy : copies) {
-            for (Rental rental : copy.getRentals()) {
-                if (rental.getReturnDate() == null) {
-                    availableCopies--;
+            if (copy.getRentals() != null) {
+                for (Rental rental : copy.getRentals()) {
+                    if (rental.getReturnDate() == null) {
+                        availableCopies--;
+                    }
                 }
             }
         }
