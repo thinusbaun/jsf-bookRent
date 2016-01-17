@@ -93,7 +93,6 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <h:commandLink action="#{messagesAdminBean.viewMessages}" value="Komunikaty administratora"/>
                         <h:panelGroup rendered="#{userBean.user.userIsStaff}">
                             <li>
                                 <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>
@@ -103,6 +102,9 @@
                             </li>
                             <li>
                                 <h:commandLink action="#{rentalAdminBean.viewRentals}" value="Wypożyczenia"/>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{messagesAdminBean.viewMessages}" value="Komunikaty"/>
                             </li>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{userBean.user ne null}">
