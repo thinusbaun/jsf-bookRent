@@ -93,6 +93,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <h:commandLink action="#{messagesAdminBean.viewMessages}" value="Komunikaty administratora"/>
                         <h:panelGroup rendered="#{userBean.user.userIsStaff}">
                             <li>
                                 <h:commandLink action="admin/usersAdmin" value="Użytkownicy"/>

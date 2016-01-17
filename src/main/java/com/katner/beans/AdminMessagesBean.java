@@ -26,7 +26,10 @@ public class AdminMessagesBean {
     }
 
     public List<AdminMessage> getMessageList() {
-        return em.createQuery("from AdminMessage ").getResultList();
+        em.getTransaction().begin();
+        List<AdminMessage> messages = em.createQuery("from AdminMessage ").getResultList();
+        em.getTransaction().commit();
+        return messages;
     }
 
 
